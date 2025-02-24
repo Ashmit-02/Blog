@@ -230,29 +230,9 @@ def about():
     return render_template("about.html", current_user=current_user)
 
 
-#@app.route("/contact", methods=["GET", "POST"])
-#def contact():
-    #return render_template("contact.html", current_user=current_user)
-
-
-MAIL_ADDRESS = os.getenv("EMAIL_KEY")
-MAIL_APP_PW = os.getenv("PASSWORD_KEY")
-
 @app.route("/contact", methods=["GET", "POST"])
 def contact():
-     if request.method == "POST":
-         data = request.form
-         send_email(data["name"], data["email"], data["phone"], data["message"])
-         return render_template("contact.html", msg_sent=True)
-     return render_template("contact.html", msg_sent=False)
-
-
-def send_email(name, email, phone, message):
-     email_message = f"Subject:New Message\n\nName: {name}\nEmail: {email}\nPhone: {phone}\nMessage:{message}"
-     with smtplib.SMTP("smtp.gmail.com",587) as connection:
-         connection.starttls()
-         connection.login(MAIL_ADDRESS, MAIL_APP_PW)
-         connection.sendmail(from_addr=MAIL_ADDRESS, to_addrs=MAIL_ADDRESS, msg=email_message)
+    return render_template("contact.html", current_user=current_user)
 
 
 if __name__ == "__main__":
